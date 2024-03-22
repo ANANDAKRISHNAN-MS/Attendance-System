@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style_login.css">
+    <title>Qttend</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-in">
+            <form id="form">
+                <h1>Teacher Login</h1>
+                <input type="text" id="teacherId" name="teacherId" placeholder="Employee Id">
+                <input type="password" id="password" name="password" placeholder="Password">
+                <a href="#">Forgot Your Password?</a>
+                <button type="submit" id="login" >Login</button>
+            </form>
+            <p id="error-message"></p>
+        </div>
+        <div class="intro-container">
+            <div class="intro">
+                <div class="intro-panel intro-right">
+                    <h1>Welcome Back</h1>
+                    <p>Enter Your Details to use the Features of the Website</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/teacher_login.js"></script>
+</body>
+</html>
