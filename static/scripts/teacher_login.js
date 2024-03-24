@@ -15,7 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMsg.innerText=result.data;
             errorMsg.style.border='1.5px solid #66FF00';
             errorMsg.style.color='#008080';
-            errorMsg.style.display='block'; 
+            errorMsg.style.display='block';
+            setTimeout(()=>{
+                window.location.replace(`/profile/teacher?id=${teacherId.value}`);
+            },1000)
         }
         catch(error){
             errorMsg.innerText=error.response.data;

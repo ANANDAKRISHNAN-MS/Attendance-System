@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/teacher_dashboard.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>Teacher Dashboard</title>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title" id="<%= teacher.teacher_id %>">Hi,<%= teacher.name %> !</div>
+      <div class="card-description">Here are the courses you're currently teaching</div>
+    </div>
+    <button class="button">Add new course</button>
+    <div class="card-content">
+     
+    </div>
+  </div>
+  <script src="../scripts/teacher_dashboard.js"></script>
+</body>
+</html>
