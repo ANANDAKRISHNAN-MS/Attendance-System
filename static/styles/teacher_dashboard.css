@@ -37,16 +37,28 @@ body{
   }
   
   /* "Add new course" Button */
-  .button {
+  .buttons button{
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     color:black;
     font-size: 16px;
     cursor: pointer;
+  }
+  .Logout{
     position: absolute;
     top:15px;
-    right:20px;
+    right:200px
+  }
+  .Logout a{
+    text-decoration: none;
+    color:black;
+    font-size: 16px;
+  }
+  .newCourse{
+    position: absolute;
+    top:15px;
+    right:20px
   }
   
   /* Card Content */
