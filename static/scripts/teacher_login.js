@@ -16,8 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMsg.style.border='1.5px solid #66FF00';
             errorMsg.style.color='#008080';
             errorMsg.style.display='block';
-            setTimeout(()=>{
-                window.location.replace(`/profile/teacher?id=${teacherId.value}`);
+            setTimeout(async ()=>{
+                const data={id:teacherId.value};
+                const teacherData = await axios.post('/profile/teacher',data);
+                document.open('text/html', 'replace');
+                document.write(teacherData.data);
+                document.close();
             },1000)
         }
         catch(error){

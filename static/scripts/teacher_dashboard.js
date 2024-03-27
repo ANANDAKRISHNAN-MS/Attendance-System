@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded',function(){
-    const teacher = document.getElementsByClassName('card-title')[0];
-const cardContent = document.querySelector('.card-content');
-const getCourse= async()=>{
+  const teacher = document.getElementsByClassName('card-title')[0];
+  const cardContent = document.querySelector('.card-content');
+  const getCourse= async()=>{
     try {
         const res = await axios.get('/courses/teacher',{
             params:{
@@ -34,7 +34,7 @@ const getCourse= async()=>{
                     <h3 class="course-title">${course_code}</h3>
                     <p class="course-description">${course_name}</p>
                   </div>
-                  <a href="../course.html?id=${tcc_code}" class="view-link"><p>View</p><svg
+                  <a href="../course.html?id=${tcc_code}&&code=${course_code}&&name=${course_name}" class="view-link"><p>View</p><svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -57,5 +57,14 @@ const getCourse= async()=>{
         console.log(error);
     }
 }
+function loadScript(url) {
+  var script = document.createElement('script');
+  script.src = url;
+  script.async = true; // This makes the script load asynchronously
+  document.head.appendChild(script);
+}
+
+loadScript('https://unpkg.com/axios/dist/axios.min.js');
+
 getCourse()
 })
