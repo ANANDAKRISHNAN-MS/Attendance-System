@@ -10,6 +10,23 @@ const getInfo = async ()=>{
                 tcc_code:id
             }
         });
+        const studentList = res.data.studentList;
+        const className = document.getElementById('className');
+        const semester = document.getElementById('courseSem');
+        const totalPeriod= document.getElementById('totalPeriod');
+        const studentInfo = document.getElementById('studentInfo');
+        className.innerHTML=studentList.className;
+        semester.innerHTML=studentList.semester;
+        totalPeriod.innerHTML=studentList.totalPeriod;
+        const studentInfoList = studentList.names.map(student=>{
+            let percentage = Number(student[1])*100/Number(studentList.totalPeriod);
+            return `<tr>
+            <td class="font-medium">${student[0]}</td>
+            <td>${student[1]}</td>
+            <td>${parseFloat(percentage.toFixed(2))}%</td>
+          </tr>`
+        }).join('');
+        studentInfo.innerHTML=studentInfoList;
     }
     catch(error){
         console.log(error);
