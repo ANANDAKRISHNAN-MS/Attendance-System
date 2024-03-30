@@ -18,15 +18,33 @@ const getInfo = async ()=>{
         className.innerHTML=studentList.className;
         semester.innerHTML=studentList.semester;
         totalPeriod.innerHTML=studentList.totalPeriod;
-        const studentInfoList = studentList.names.map(student=>{
-            let percentage = Number(student[1])*100/Number(studentList.totalPeriod);
-            return `<tr>
-            <td class="font-medium">${student[0]}</td>
-            <td>${student[1]}</td>
-            <td>${parseFloat(percentage.toFixed(2))}%</td>
-          </tr>`
-        }).join('');
-        studentInfo.innerHTML=studentInfoList;
+        if(typeof(studentList.names)==="object"){
+            if(studentList.totalPeriod===0){
+                const studentInfoList = studentList.names.map(student=>{
+                    return `<tr>
+                    <td class="font-medium">${student[0]}</td>
+                    <td>${student[1]}</td>
+                    <td>0%</td>
+                  </tr>`
+                }).join('');
+                studentInfo.innerHTML=studentInfoList;
+            }
+            else{
+                const studentInfoList = studentList.names.map(student=>{
+                    let percentage = Number(student[1])*100/Number(studentList.totalPeriod);
+                    return `<tr>
+                    <td class="font-medium">${student[0]}</td>
+                    <td>${student[1]}</td>
+                    <td>${parseFloat(percentage.toFixed(2))}%</td>
+                  </tr>`
+                }).join('');
+                studentInfo.innerHTML=studentInfoList;
+            }
+            
+        }
+        else{
+            studentInfo.innerHTML=`<h3 style="paddinf:10px">${studentList.names}</h3>`; 
+        }
     }
     catch(error){
         console.log(error);

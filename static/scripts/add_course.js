@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded',function(){
       newCourseFormContainer.style.display = 'block';
       newCourseButton.innerText="Back";
       document.getElementsByClassName("Logout")[0].style.display='none';
+      displayMsg.style.display='none';   
     }
   });
 
