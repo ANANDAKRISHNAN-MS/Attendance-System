@@ -155,3 +155,9 @@ select{
     width:30%;
     text-align: center;
 }
+img{
+    width:500px;
+    height: 500px;
+    position: relative;
+    left:30%;
+}

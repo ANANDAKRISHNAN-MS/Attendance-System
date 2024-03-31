@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
         displayMsg.style.display='block';  
 
         getInfo()
-        
+
         setTimeout(()=>{
             attendanceTable.style.display = 'none';
             studentDetailsTable.style.display = 'block';
@@ -73,7 +73,45 @@ document.addEventListener("DOMContentLoaded", function() {
 
         },1000)
     } catch (error) {
-        console.log(error);
+        displayMsg.innerText=error.response.data;
+        displayMsg.style.border='1.5px solid red';
+        displayMsg.style.color='#FF004F';
+        displayMsg.style.display='block';
+    }
+ }
+
+ const generateQR = async () =>{
+    try {
+        const date = document.getElementById('currDate').value;
+        const period = document.getElementById('period').value;
+        const params = window.location.search
+        const id = new URLSearchParams(params).get('id')
+        const qrCard = document.getElementById("qrCard");
+        const qrImg = document.querySelector('.qrCode img')
+
+        const uniqueId =`${id}@${date}@${period}`;
+
+        qrCard.style.display='block';
+        const data = {
+            uniqueId:uniqueId,
+            tcc_code:id
+        }
+
+        const res = await axios.post('/attendance/generateQr',data);
+
+        const encodedUniqueId = encodeURIComponent(uniqueId);
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodedUniqueId}`;
+        
+        setTimeout( async ()=>{
+            qrImg.src=" ";
+            qrCard.style.display='none'; 
+            const resp = await axios.post('/attendance/deleteQr',data);
+            getInfo();
+        },60000);
+        
+
+    } catch (error) {
+        console.log(error)
     }
  }
  
@@ -117,6 +155,21 @@ document.addEventListener("DOMContentLoaded", function() {
           submitAttendance();
        }
  
+     })
+
+     document.getElementById('generateQR').addEventListener('click',function(e){
+        e.preventDefault();
+        displayMsg.style.display='none';
+
+        if(document.getElementById('period').value==="null"){
+            displayMsg.innerHTML="Select the Period";
+            displayMsg.style.border='1.5px solid red';
+            displayMsg.style.color='#FF004F';
+            displayMsg.style.display='block';
+         }
+         else{
+            generateQR()
+         }
      })
      
 });
