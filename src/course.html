@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="card-footer">
-        <button class="button primary-button" id="attendence">Mark Attendance</button>
+        <button class="button primary-button" id="toggleAttendance">Mark Attendance</button>
       </div>
     </div>
     <div class="card">
@@ -59,8 +59,44 @@
         </table>
       </div>
     </div>
-    
+    <div class="card" id="attendanceTable" style="display: none;">
+      <div class="card-header">
+        <div class="card-title">Attendance</div>
+      </div>
+      <div class="card-content">
+        <div class="details"></div>
+          <label for="currDate">Date</label>
+          <input type="date" id="currDate" >
+          <label for="period">Period</label>
+          <select id="period">
+            <option value="null"></option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="X">Extra</option>
+          </select>
+        </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Attendance</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceRows">
+            </tbody>
+        </table>
+       <button id="submitAttendance">Submit</button>
+       <button id="generateQR">Generate QR</button>
+       <p id="displayMsg"></p>
+      </div>
+    </div> 
   </div>
+  <script src="scripts/markAttendance.js"></script>
 </body>
 </html>
 

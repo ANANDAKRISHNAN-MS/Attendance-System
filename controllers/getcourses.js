@@ -39,7 +39,7 @@ const getStudentInfo = async (req,res)=>{
                     totalPeriod:0,
                     names:
                     students.rows.map(row=>{
-                        return [row.name,0];
+                        return [row.student_id,row.name,0];
                     })
                 }
                 return res.status(200).json({studentList:studentList});
@@ -59,7 +59,7 @@ const getStudentInfo = async (req,res)=>{
                                 count++;
                             }
                         })
-                     return [row.name,count];
+                     return [row.student_id,row.name,count];
                         })
                     };
                 return res.status(200).json({studentList:studentList});

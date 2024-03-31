@@ -22,8 +22,8 @@ const getInfo = async ()=>{
             if(studentList.totalPeriod===0){
                 const studentInfoList = studentList.names.map(student=>{
                     return `<tr>
-                    <td class="font-medium">${student[0]}</td>
-                    <td>${student[1]}</td>
+                    <td class="font-medium" id="${student[0]}">${student[1]}</td>
+                    <td>${student[2]}</td>
                     <td>0%</td>
                   </tr>`
                 }).join('');
@@ -31,10 +31,10 @@ const getInfo = async ()=>{
             }
             else{
                 const studentInfoList = studentList.names.map(student=>{
-                    let percentage = Number(student[1])*100/Number(studentList.totalPeriod);
+                    let percentage = Number(student[2])*100/Number(studentList.totalPeriod);
                     return `<tr>
-                    <td class="font-medium">${student[0]}</td>
-                    <td>${student[1]}</td>
+                    <td class="font-medium" id="${student[0]}">${student[1]}</td>
+                    <td>${student[2]}</td>
                     <td>${parseFloat(percentage.toFixed(2))}%</td>
                   </tr>`
                 }).join('');
@@ -43,7 +43,7 @@ const getInfo = async ()=>{
             
         }
         else{
-            studentInfo.innerHTML=`<h3 style="paddinf:10px">${studentList.names}</h3>`; 
+            studentInfo.innerHTML=`<h3 style="padding:10px">${studentList.names}</h3>`; 
         }
     }
     catch(error){
