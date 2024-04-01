@@ -88,13 +88,16 @@ document.addEventListener("DOMContentLoaded", function() {
         const id = new URLSearchParams(params).get('id')
         const qrCard = document.getElementById("qrCard");
         const qrImg = document.querySelector('.qrCode img')
+        const checkBox = document.getElementsByClassName('attendance');
 
         const uniqueId =`${id}@${date}@${period}`;
 
         qrCard.style.display='block';
         const data = {
             uniqueId:uniqueId,
-            tcc_code:id
+            attendanceData : Array.from(checkBox).map((student)=>{
+                return student.defaultValue;
+            })
         }
 
         const res = await axios.post('/attendance/generateQr',data);
@@ -104,8 +107,11 @@ document.addEventListener("DOMContentLoaded", function() {
         
         setTimeout( async ()=>{
             qrImg.src=" ";
-            qrCard.style.display='none'; 
-            const resp = await axios.post('/attendance/deleteQr',data);
+            qrCard.style.display='none';
+            const newData = {
+                uniqueId:uniqueId 
+            } 
+            const resp = await axios.post('/attendance/deleteQr',newData);
             getInfo();
         },60000);
         
