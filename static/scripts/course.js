@@ -1,7 +1,7 @@
-const params = window.location.search
-const id = new URLSearchParams(params).get('id')
-const code = new URLSearchParams(params).get('code')
-const name = new URLSearchParams(params).get('name')
+
+document.addEventListener('DOMContentLoaded',function(){ 
+
+const id = document.getElementsByClassName('card-title')[0].id;
 
 const getInfo = async ()=>{
     try{
@@ -51,10 +51,17 @@ const getInfo = async ()=>{
     }
 }
 
-document.addEventListener('DOMContentLoaded',function(){ 
-    const courseCode = document.getElementById('courseCode');
-    const courseName = document.getElementById('courseName');   
-    courseCode.innerHTML=code;
-    courseName.innerHTML=name;
+function loadScript(url,callback) {
+    var script = document.createElement('script');
+    script.src = url;
+    script.onload=callback
+    script.async = true; // This makes the script load asynchronously
+    document.head.appendChild(script);
+  }
+
+loadScript('https://unpkg.com/axios/dist/axios.min.js',function(){
+
     getInfo();
+});
+
 })

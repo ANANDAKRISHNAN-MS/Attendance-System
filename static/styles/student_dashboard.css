@@ -48,17 +48,12 @@ body{
   .Logout{
     position: absolute;
     top:15px;
-    right:180px
+    right:50px
   }
   .Logout a{
     text-decoration: none;
     color:black;
     font-size: 16px;
-  }
-  .newCourse{
-    position: absolute;
-    top:15px;
-    right:20px
   }
   
   /* Card Content */
@@ -102,7 +97,7 @@ body{
     text-decoration: none;
     font-weight: bolder;
     position:absolute;
-    right:100px;
+    right:10%;
     /* display: inline; */
   }
   .view-link p{
@@ -110,61 +105,4 @@ body{
     position: relative;
     top:-7px;
   }
-  
-  #newCourseFormContainer{
-    background-color:transparent;
-    border-radius: 8px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-    padding:10px;
-    overflow: hidden;
-    display: flex;
-    position:relative;
-    top:20%;
-    left:20%;
-    margin-bottom: 20px;
-    height:600px;
-    width:700px;
-  }
 
-  #newCourseForm{
-    padding:30px;
-    height:70%;
-    width:40%;
-    position:relative;
-    top:5%;
-    left:25%;
-    display: flex;
-    flex-direction: column;
-  }
-
- #newCourseForm label{
-  margin:5px;
-  font-size: large;
- }
-
-#newCourseForm select{
-    margin-bottom: 15%;
-    width:75%;
-    padding:5px;
-    background-color:whitesmoke;
-    border-radius: 8px;
-    font-size: medium;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-}
-#newCourseForm button{
-  padding:8px;
-  width:30%;
-  font-size: medium;
-  border-radius: 8px;
-  background-color: rgb(243, 238, 238);
-  margin-bottom:3%;
-}
-#displayMsg{
-  position:relative;
-  border-radius: 4px;
-  bottom:-13%;
-  left:20%;
-  width:50%;
-  text-align: center;
-  padding:5px;
-}

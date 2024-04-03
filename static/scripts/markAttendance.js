@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const date = document.getElementById('currDate').value;
         const period = document.getElementById('period').value;
         const checkBox = document.getElementsByClassName('attendance');
-        const params = window.location.search
-        const id = new URLSearchParams(params).get('id')
+        const id = document.getElementsByClassName('card-title')[0].id;
+
         const data ={
             tcc_code:id,
             date : date,
@@ -84,8 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
     try {
         const date = document.getElementById('currDate').value;
         const period = document.getElementById('period').value;
-        const params = window.location.search
-        const id = new URLSearchParams(params).get('id')
+        const id = document.getElementsByClassName('card-title')[0].id;
         const qrCard = document.getElementById("qrCard");
         const qrImg = document.querySelector('.qrCode img')
         const checkBox = document.getElementsByClassName('attendance');
@@ -113,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
             } 
             const resp = await axios.post('/attendance/deleteQr',newData);
             getInfo();
-        },60000);
+        },10000);
         
 
     } catch (error) {

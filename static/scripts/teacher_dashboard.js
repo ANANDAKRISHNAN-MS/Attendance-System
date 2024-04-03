@@ -1,3 +1,29 @@
+const addLinks = ()=>{
+        const links = document.querySelectorAll('.course-card a');
+        const linkList = Array.from(links);
+  
+        linkList.forEach(link =>{
+          link.addEventListener('click', async function(event) {
+            event.preventDefault();
+            linkData = link.id.split('&&');
+              
+            const data ={
+              tcc_code : linkData[0],
+              course_code : linkData[1],
+              course_name : linkData[2],
+            }
+
+            const res = await axios.post('/profile/course/teacher',data);
+
+            const newWindow = window.open('/course.html','_blank','width=500,height=500')
+
+            newWindow.onload = function(){
+              newWindow.document.write(res.data);
+              newWindow.document.close()
+            }
+
+        })})
+}
 const getCourse= async()=>{
   try {
       const teacher = document.getElementsByClassName('card-title')[0];
@@ -33,7 +59,7 @@ const getCourse= async()=>{
                   <h3 class="course-title">${course_code}</h3>
                   <p class="course-description">${course_name}</p>
                 </div>
-                <a href="../course.html?id=${tcc_code}&&code=${course_code}&&name=${course_name}" class="view-link"><p>View</p><svg
+                <a href="" id="${tcc_code}&&${course_code}&&${course_name}" class="view-link"><p>View</p><svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -51,7 +77,12 @@ const getCourse= async()=>{
             </div>`
           }).join('');
           cardContent.innerHTML = courseList; 
-      }
+
+        }
+
+        addLinks()
+
+
   } catch (error) {
       console.log(error);
   }

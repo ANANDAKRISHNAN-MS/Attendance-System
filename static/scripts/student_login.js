@@ -15,7 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMsg.innerText=result.data;
             errorMsg.style.border='1.5px solid #66FF00';
             errorMsg.style.color='#008080';
-            errorMsg.style.display='block'; 
+            errorMsg.style.display='block';
+            
+            setTimeout(async ()=>{
+                const data={id:studentId.value};
+                const studentData = await axios.post('/profile/student',data);
+                document.open('text/html', 'replace');
+                document.write(studentData.data);
+                document.close();
+            },1000)
         }
         catch(error){
             errorMsg.innerText=error.response.data;
