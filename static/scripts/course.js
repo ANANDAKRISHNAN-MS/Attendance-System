@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
 const id = document.getElementsByClassName('card-title')[0].id;
 
-const getInfo = async ()=>{
+ window.getInfo = async ()=>{
     try{
         const res = await axios.get('/courses/studentlist',{
             params:{
@@ -63,5 +63,6 @@ loadScript('https://unpkg.com/axios/dist/axios.min.js',function(){
 
     getInfo();
 });
+loadScript("https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js",function(){})
 
 })

@@ -30,17 +30,17 @@ const generateQr = async (req,res)=>{
         const {uniqueId,attendanceData}=req.body;
         tableValues = uniqueId.split('@');
 
-        attendanceData.forEach(async student=>{
+        await Promise.all(attendanceData.map(async (student) => {
             try {
-                const result = await pool.query("INSERT into \"Attendence_System\".attendence VALUES ($1,$2,$3,$4)ON CONFLICT (tcc_code,student_id,date,period,attend) DO NOTHING", [tableValues[0],student,tableValues[1],tableValues[2],'A']);
-               } catch (error) {
-                console.log(error.constraint);
-               } 
-        })
+                const result = await pool.query("INSERT into \"Attendence_System\".attendence VALUES ($1,$2,$3,$4,$5) ON CONFLICT (tcc_code,student_id,date,period) DO NOTHING", [tableValues[0], student, tableValues[1], tableValues[2],'A']);
+            } catch (error) {
+                console.log(error);
+            }
+        }));
 
         const result1 = await pool.query("INSERT into \"Attendence_System\".qr_table(qr_id) VALUES ($1)",[uniqueId]);
         
-        res.status(200).send("Succesfull");
+        res.status(200).send();
     }catch(error){
         console.error(error)
     }
@@ -51,7 +51,7 @@ const deleteQr = async (req,res)=>{
     try {
         const {uniqueId}=req.body;
         const result = await pool.query("DELETE FROM \"Attendence_System\".qr_table WHERE qr_id=$1",[uniqueId]);
-        res.status(200).send("Successfull");
+        res.status(200).send();
     }catch(error){
         console.error(error)
     }

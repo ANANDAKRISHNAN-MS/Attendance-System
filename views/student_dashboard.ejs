@@ -16,7 +16,18 @@
       <button class="Logout"><a href="../student_login.html">Logout</a></button>
     </div>
     <div class="card-content">
+      <div class="grid">
+        <div class="grid-item font-medium">Semester</div>
+        <div class="grid-item text-gray" id="courseSem"><%= student.semester %></div>
+      </div>
+      <div class="grid">
+        <div class="grid-item font-medium">Class</div>
+        <div class="grid-item text-gray" id="className"><%= student.class %></div>
+      </div>
+    </div>
+    <div class="card-content" id="card-content">
+
     </div>
   <script src="../scripts/student_dashboard.js"></script>
-</body>
+</body> 
 </html>

@@ -78,4 +78,49 @@ const getStudentInfo = async (req,res)=>{
     }
 }
 
-module.exports = {studentGetCourses,teacherGetCourses,getStudentInfo}
+const getAttendanceInfo = async (req,res)=>{
+    const {student_id,tcc_code}=req.query;
+    try {
+        const attendanceInfo = await pool.query('SELECT student_id,date,period,attend FROM  \"Attendence_System\".attendence WHERE tcc_code=$1 and student_id=$2', [tcc_code,student_id])
+        
+        const teacherInfo = await pool.query('SELECT name FROM  \"Attendence_System\".teacher_details WHERE teacher_id=(SELECT teacher_id FROM  \"Attendence_System\".tcc_table WHERE tcc_code=$1 )', [tcc_code])
+ 
+
+        if(attendanceInfo.rowCount==0){
+        
+            const attendanceList={
+                teacherName:teacherInfo.rows[0].name,
+                totalPeriod:0,
+                periodAttended:0,
+                absenceDetails:"Attendance has Not Yet Taken"
+
+            }
+            
+            return res.status(200).json({attendanceList:attendanceList});
+        }
+        else{
+            const periodAttended = attendanceInfo.rows.filter(item =>{
+                if(item.attend==='P'){
+                    return true
+                }
+            })
+            const attendanceList={
+                teacherName:teacherInfo.rows[0].name,
+                totalPeriod:attendanceInfo.rowCount,
+                periodAttended:periodAttended.length,
+                absenceDetails:attendanceInfo.rows.map(data=>{
+                    if(data.attend==='A'){
+                        return[data.date,data.period]
+                    }
+                }).filter(element=> element!==undefined)
+            } 
+            return res.status(200).json({attendanceList:attendanceList});
+        }
+
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = {studentGetCourses,teacherGetCourses,getStudentInfo,getAttendanceInfo}

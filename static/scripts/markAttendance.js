@@ -86,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const period = document.getElementById('period').value;
         const id = document.getElementsByClassName('card-title')[0].id;
         const qrCard = document.getElementById("qrCard");
-        const qrImg = document.querySelector('.qrCode img')
         const checkBox = document.getElementsByClassName('attendance');
 
         const uniqueId =`${id}@${date}@${period}`;
@@ -102,18 +101,31 @@ document.addEventListener("DOMContentLoaded", function() {
         const res = await axios.post('/attendance/generateQr',data);
 
         const encodedUniqueId = encodeURIComponent(uniqueId);
-        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodedUniqueId}`;
+        
+        const qrcode = new QRCode(document.getElementById("qrCode"), {
+            text: encodedUniqueId,
+            width: 256,
+            height: 256,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.M
+        });
         
         setTimeout( async ()=>{
-            qrImg.src=" ";
+            document.getElementById("qrCode").innerHTML="" 
             qrCard.style.display='none';
             const newData = {
                 uniqueId:uniqueId 
             } 
             const resp = await axios.post('/attendance/deleteQr',newData);
             getInfo();
-        },10000);
-        
+            setTimeout(() => {
+            attendanceTable.style.display = 'none';
+            studentDetailsTable.style.display = 'block';
+            toggleButton.textContent = 'Mark Attendance';
+            isAttendanceMode = false;
+            },1000);  
+        },15000)    
 
     } catch (error) {
         console.log(error)

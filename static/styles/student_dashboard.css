@@ -58,8 +58,23 @@ body{
   
   /* Card Content */
   .card-content {
-    padding: 20px;
-    
+    padding: 1rem;
+   }
+   
+   .grid {
+    display: flex;
+    margin:5px;
+   }
+   
+   .grid-item.font-medium {
+    font-weight: 600;
+    width:50%;
+   }
+   
+   .grid-item.text-gray {
+    color: #514f4f;
+    text-align: left;
+    width:50%;
    }
   
   /* Course Card */
