@@ -16,7 +16,7 @@ const addLinks = ()=>{
 
       const res = await axios.post('/profile/course/student',data);
 
-      const newWindow = window.open('/course.html','_blank','width=device-width,height=device-height')
+      const newWindow = window.open('/course.html','_blank')
 
         newWindow.onload = function(){
         newWindow.document.write(res.data);

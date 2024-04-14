@@ -81,10 +81,11 @@ const getStudentInfo = async (req,res)=>{
 const getAttendanceInfo = async (req,res)=>{
     const {student_id,tcc_code}=req.query;
     try {
-        const attendanceInfo = await pool.query('SELECT student_id,date,period,attend FROM  \"Attendence_System\".attendence WHERE tcc_code=$1 and student_id=$2', [tcc_code,student_id])
+        const attendanceInfo = await pool.query(`SELECT student_id, to_char(date, 'YYYY-MM-DD') AS formatted_date, period, attend 
+        FROM "Attendence_System".attendence 
+        WHERE tcc_code=$1 AND student_id=$2`, [tcc_code,student_id])
         
         const teacherInfo = await pool.query('SELECT name FROM  \"Attendence_System\".teacher_details WHERE teacher_id=(SELECT teacher_id FROM  \"Attendence_System\".tcc_table WHERE tcc_code=$1 )', [tcc_code])
- 
 
         if(attendanceInfo.rowCount==0){
         
@@ -104,13 +105,19 @@ const getAttendanceInfo = async (req,res)=>{
                     return true
                 }
             })
+            for(i=0;i<length(attendanceInfo.rows);i++)
+            {
+                if(attendanceInfo.rows[i].period==='X'){
+                    attendanceInfo.rows[i].period='EXTRA';
+                }
+            }
             const attendanceList={
                 teacherName:teacherInfo.rows[0].name,
                 totalPeriod:attendanceInfo.rowCount,
                 periodAttended:periodAttended.length,
                 absenceDetails:attendanceInfo.rows.map(data=>{
                     if(data.attend==='A'){
-                        return[data.date,data.period]
+                        return[data.formatted_date,data.period]
                     }
                 }).filter(element=> element!==undefined)
             } 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Course Dashboard</title>
-  <link rel="stylesheet" href="styles/course.css">
+  <link rel="stylesheet" href="styles/course_student.css">
   <script src="scripts/course_student.js"></script>
 </head>
 <body>
@@ -31,8 +31,10 @@
           <div class="grid-item text-gray" id="totalPeriod"></div>
         </div>
       </div>
-      <div class="card-footer">
+      <div class="card-footer" id="card-footer">
+        <video id="preview" style="display:none"></video>
         <button class="button primary-button" id="scanQR">Scan QR</button>
+        <p id="displayMsg" style="display: none"></p>
       </div>
     </div>
     <div class="card">

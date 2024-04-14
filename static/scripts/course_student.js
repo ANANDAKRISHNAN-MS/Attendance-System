@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded',function(){
     const tcc_code = document.getElementsByClassName('card-title')[0].id;
     const student_id = document.getElementsByClassName('container')[0].id;
     
-     window.getAttendanceInfo = async ()=>{
+    window.getAttendanceInfo = async ()=>{
         try{
             const res = await axios.get('/courses/attendanceInfo',{
                 params:{
@@ -85,6 +85,5 @@ document.addEventListener('DOMContentLoaded',function(){
     
         getAttendanceInfo();
     });
-    
     
     })

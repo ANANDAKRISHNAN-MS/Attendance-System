@@ -57,4 +57,24 @@ const deleteQr = async (req,res)=>{
     }
    
 }
-module.exports = {markAttendanceManually,generateQr,deleteQr}
+
+const scanQr = async (req,res)=>{
+    try {
+       const {tcc_code,student_id,qr_code}=req.body
+       
+       const result = await pool.query("SELECT * FROM \"Attendence_System\".qr_table WHERE qr_id=$1",[qr_code]);
+       if(result.rowCount===0){
+        return res.status(401).send("QR Code TImeout");
+       }else{
+            codeList = qr_code.split('@')
+            const result =await pool.query("UPDATE \"Attendence_System\".attendence SET attend='P' WHERE tcc_code=$1 AND student_id=$2 AND date=$3 AND period=$4",[tcc_code,student_id,codeList[1],codeList[2]]);
+            return res.status(200).send("Succesfully Marked") 
+       } 
+
+    }catch(error){
+        console.error(error)
+    }
+   
+}
+
+module.exports = {markAttendanceManually,generateQr,deleteQr,scanQr}
