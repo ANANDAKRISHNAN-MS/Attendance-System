@@ -2,7 +2,7 @@ const pool = require('../database');
 const studentGetCourses = async (req,res)=>{
     const {id}=req.query;
     try {
-        const user = await pool.query('SELECT student_id,tcc_code,course_code,course_name FROM  (\"Attendence_System\".student_details natural join \"Attendence_System\".tcc_table ) natural join \"Attendence_System\".course WHERE student_id = $1', [id]);
+        const user = await pool.query('SELECT student_id,tcc_code,course_code,course_name FROM (\"Attendence_System\".student_details natural join \"Attendence_System\".tcc_table ) natural join \"Attendence_System\".course WHERE student_id = $1', [id]);
        
          res.status(200).json({list:user.rows});
     } catch (error) {
@@ -13,7 +13,7 @@ const studentGetCourses = async (req,res)=>{
 const teacherGetCourses = async (req,res)=>{
     const {id}=req.query;
     try {
-        const user = await pool.query('SELECT tcc_code,course_code,course_name FROM  \"Attendence_System\".tcc_table natural join \"Attendence_System\".course WHERE teacher_id = $1', [id]);
+        const user = await pool.query('SELECT tcc_code,course_code,course_name FROM \"Attendence_System\".tcc_table natural join \"Attendence_System\".course WHERE teacher_id = $1', [id]);
         res.status(200).json({list:user.rows});
     } catch (error) {
         console.log(error);
@@ -23,10 +23,10 @@ const teacherGetCourses = async (req,res)=>{
 const getStudentInfo = async (req,res)=>{
     const {tcc_code}=req.query;
     try {
-        const students = await pool.query('SELECT student_id,name,semester,class FROM  \"Attendence_System\".student_details natural join \"Attendence_System\".class WHERE class_code = (SELECT class_code FROM  \"Attendence_System\".tcc_table WHERE tcc_code = $1)', [tcc_code])
+        const students = await pool.query('SELECT student_id,name,semester,class FROM \"Attendence_System\".student_details natural join \"Attendence_System\".class WHERE class_code = (SELECT class_code FROM \"Attendence_System\".tcc_table WHERE tcc_code = $1)', [tcc_code])
        
         if(students.rowCount===0){
-            const course = await pool.query('SELECT semester,class FROM  \"Attendence_System\".class WHERE class_code = (SELECT class_code FROM  \"Attendence_System\".tcc_table WHERE tcc_code = $1)', [tcc_code])
+            const course = await pool.query('SELECT semester,class FROM \"Attendence_System\".class WHERE class_code = (SELECT class_code FROM \"Attendence_System\".tcc_table WHERE tcc_code = $1)', [tcc_code])
         
             const studentList = {
                 className : course.rows[0].class, 
@@ -37,7 +37,7 @@ const getStudentInfo = async (req,res)=>{
             return res.status(200).json({studentList:studentList});
         }
         else{
-            const attendence = await pool.query('SELECT student_id,attend FROM  \"Attendence_System\".attendence  WHERE  tcc_code = $1' , [tcc_code]);
+            const attendence = await pool.query('SELECT student_id,attend FROM \"Attendence_System\".attendence WHERE tcc_code = $1' , [tcc_code]);
         
             if(attendence.rowCount===0){
                 const studentList = {
@@ -52,7 +52,7 @@ const getStudentInfo = async (req,res)=>{
                 return res.status(200).json({studentList:studentList});
             }
             else{
-                const totalPeriod =  await pool.query('SELECT COUNT(*) FROM  \"Attendence_System\".attendence  WHERE  tcc_code = $1 GROUP BY student_id' , [tcc_code]);
+                const totalPeriod =  await pool.query('SELECT COUNT(*) FROM \"Attendence_System\".attendence WHERE tcc_code = $1 GROUP BY student_id' , [tcc_code]);
             
                 const studentList = {
                     className : students.rows[0].class, 
@@ -81,11 +81,9 @@ const getStudentInfo = async (req,res)=>{
 const getAttendanceInfo = async (req,res)=>{
     const {student_id,tcc_code}=req.query;
     try {
-        const attendanceInfo = await pool.query(`SELECT student_id, to_char(date, 'YYYY-MM-DD') AS formatted_date, period, attend 
-        FROM "Attendence_System".attendence 
-        WHERE tcc_code=$1 AND student_id=$2`, [tcc_code,student_id])
+        const attendanceInfo = await pool.query(`SELECT student_id, to_char(date, 'YYYY-MM-DD') AS formatted_date, period, attend FROM "Attendence_System".attendence WHERE tcc_code=$1 AND student_id=$2`, [tcc_code,student_id])
         
-        const teacherInfo = await pool.query('SELECT name FROM  \"Attendence_System\".teacher_details WHERE teacher_id=(SELECT teacher_id FROM  \"Attendence_System\".tcc_table WHERE tcc_code=$1 )', [tcc_code])
+        const teacherInfo = await pool.query('SELECT name FROM \"Attendence_System\".teacher_details WHERE teacher_id=(SELECT teacher_id FROM \"Attendence_System\".tcc_table WHERE tcc_code=$1 )', [tcc_code])
 
         if(attendanceInfo.rowCount==0){
         
@@ -105,7 +103,7 @@ const getAttendanceInfo = async (req,res)=>{
                     return true
                 }
             })
-            for(i=0;i<length(attendanceInfo.rows);i++)
+            for(i=0;i<attendanceInfo.rows.length;i++)
             {
                 if(attendanceInfo.rows[i].period==='X'){
                     attendanceInfo.rows[i].period='EXTRA';
