@@ -4,14 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Course Dashboard</title>
-  <link rel="stylesheet" href="styles/course.css">
-  <script src="scripts/course.js"></script>
+  <link rel="stylesheet" href="/styles/course.css">
+  <script src="/scripts/course.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+
 </head>
 <body>
   <div class="container">
     <div class="card">
       <div class="card-header">
-        <div class="card-title" id="<%= teacher.tcc_code %>">Course Details</div>
+        <div class="card-title" id="<%= data.tcc_code %>">Course Details</div>
       </div>
       <div class="card-content">
         <div class="grid">
@@ -100,13 +103,12 @@
       </div>
       <div class="card-content">
         <div class="qrCode" id="qrCode">
-          <!-- <img src="" id="qrImg"> -->
         </div>
         </div>
       </div>
     </div> 
   </div>
-  <script src="scripts/markAttendance.js"></script>
+  <script src="/scripts/markAttendance.js"></script>
 </body>
 </html>
 

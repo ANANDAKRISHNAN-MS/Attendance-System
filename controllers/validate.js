@@ -6,6 +6,8 @@ const studentValidate = async (req,res)=>{
         if(result.rowCount===0){
             return res.status(401).send("Invalid Credentials");
         }
+        req.session.isAuthStudent=true;
+        req.session.studentId=id
         return res.status(200).send("Login Succesfull");
       } catch (err) {
         console.error(err);
@@ -18,6 +20,8 @@ const teacherValidate = async (req,res)=>{
         if(result.rowCount===0){
             return res.status(401).send("Invalid Credentials");
         }
+        req.session.isAuthTeacher=true;
+        req.session.teacherId=id;
         return res.status(200).send("Login Succesfull");
       } catch (err) {
         console.error(err);

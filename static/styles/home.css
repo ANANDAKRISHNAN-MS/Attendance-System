@@ -5,21 +5,21 @@
     margin: 0;
     padding: 0;
     font-family: "Ubuntu";
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    box-sizing: border-box; 
 }
 
 /* Navbar */
 .navbar {
-    background-color:transparent; /* Change to white background */
+    background-color:transparent;
     height: 10vh;
     width: 100%;
     color: black;
     position: fixed;
     display: flex;
-    justify-content: space-between; /* Adjust spacing between logo and nav items */
+    justify-content: space-between;
     align-items: center;
-    padding: 0 20px; /* Add padding to navbar */
-    z-index: 1000; /* Ensure navbar is on top */
+    padding: 0 20px; 
+    z-index: 1000; 
 }
 
 .nav-logo {
@@ -34,8 +34,8 @@
 .nav-items a {
     text-decoration:none;
     color: black;
-    margin-right:20px; /* Adjust spacing between nav items */
-    font-weight: 300; /* Increase font weight */
+    margin-right:20px; 
+    font-weight: 300; 
     padding:5px
 }
 .nav-items a:hover{
@@ -53,8 +53,8 @@ body{
 /* Main Content */
 .wrapper {
     width: 100%;
-    min-height: 100vh; /* Ensure wrapper takes full viewport height */
-    padding-top: 10vh; /* Compensate for fixed navbar */
+    min-height: 100vh; 
+    padding-top: 10vh; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,33 +62,33 @@ body{
 }
 
 .quote {
-    text-align: center; /* Center align quote */
-    font-size: 24px; /* Decrease font size */
-    margin-bottom: 20px; /* Add spacing below quote */
+    text-align: center; 
+    font-size: 24px; 
+    margin-bottom: 20px; 
     transform: translateX(3%);
     
 }
 
 .login {
-    width: 90%; /* Adjust login section width */
+    width: 90%; 
     height:500px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    max-width: 400px; /* Set max width */
+    max-width: 400px; 
     padding: 20px;
-    background-color: #f9f9f9; /* Light background color */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background-color: #f9f9f9; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
     border-radius: 15px;
-    text-align: center; /* Center align login */
+    text-align: center; 
     transform: translateX(7%);
 }
 
 .student_login,.teacher_login {
     height:150px;
-    margin-bottom: 20px; /* Add spacing between login options */
-    background-color:#f9f9f9; /* Light background color */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin-bottom: 20px; 
+    background-color:#f9f9f9; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
     border-radius: 15px; 
    display: flex;
    align-items: center;
@@ -120,7 +120,7 @@ footer {
 }
 @media only screen and (max-width: 450px){
    .nav-logo {
-      margin-right: 25px;
+      margin:auto;
       display: block;
   } 
 }

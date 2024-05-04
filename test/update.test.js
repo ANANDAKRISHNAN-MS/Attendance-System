@@ -51,6 +51,5 @@ jest.mock('../database', () => ({
        expect(res.send).toHaveBeenCalledWith("Course Already Exist");
     });
    
-    // Add more tests as needed, such as for handling database errors
    });
    

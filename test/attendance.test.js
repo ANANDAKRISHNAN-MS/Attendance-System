@@ -29,14 +29,12 @@ describe('Attendance Functions', () => {
       send: jest.fn(),
     };
 
-    // Mock the pool.query function to resolve with a success response
     pool.query.mockResolvedValue({ rowCount: 1 });
 
-    // Call the function with the mocked request and response objects
     await markAttendanceManually(req, res);
 
     // Assertions
-    expect(pool.query).toHaveBeenCalledTimes(2); // Assuming two calls to pool.query based on attendanceData
+    expect(pool.query).toHaveBeenCalledTimes(2);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.send).toHaveBeenCalledWith('Attendance Marked Succesfully');
  });
@@ -61,7 +59,7 @@ describe('Attendance Functions', () => {
     await generateQr(req, res);
 
     // Assertions
-    expect(pool.query).toHaveBeenCalledTimes(3); // Assuming three calls to pool.query based on attendanceData and QR table insertion
+    expect(pool.query).toHaveBeenCalledTimes(3); 
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.send).toHaveBeenCalled();
  });
@@ -84,7 +82,6 @@ describe('Attendance Functions', () => {
     // Call the function with the mocked request and response objects
     await deleteQr(req, res);
 
-    // Assertions
     expect(pool.query).toHaveBeenCalledTimes(1);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.send).toHaveBeenCalled();
@@ -110,8 +107,7 @@ describe('Attendance Functions', () => {
     // Call the function with the mocked request and response objects
     await scanQr(req, res);
 
-    // Assertions
-    expect(pool.query).toHaveBeenCalledTimes(2); // Assuming two calls to pool.query based on QR table lookup and attendance update
+    expect(pool.query).toHaveBeenCalledTimes(2);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.send).toHaveBeenCalledWith("Succesfully Marked");
  });
@@ -137,7 +133,7 @@ describe('Attendance Functions', () => {
     await scanQr(req, res);
 
     // Assertions
-    expect(pool.query).toHaveBeenCalledTimes(1); // Assuming two calls to pool.query based on QR table lookup and attendance update
+    expect(pool.query).toHaveBeenCalledTimes(1); 
     expect(res.status).toHaveBeenCalledWith(401);
     expect(res.send).toHaveBeenCalledWith("QR Code Timeout");
  });

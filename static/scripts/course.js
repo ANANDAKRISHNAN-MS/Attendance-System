@@ -1,13 +1,14 @@
 
 document.addEventListener('DOMContentLoaded',function(){ 
 
-const id = document.getElementsByClassName('card-title')[0].id;
+  const params = window.location.search
+  const tcc_code = new URLSearchParams(params).get('tcc_code');
 
  window.getInfo = async ()=>{
     try{
         const res = await axios.get('/courses/studentlist',{
             params:{
-                tcc_code:id
+                tcc_code:tcc_code
             }
         });
         const studentList = res.data.studentList;
@@ -51,18 +52,7 @@ const id = document.getElementsByClassName('card-title')[0].id;
     }
 }
 
-function loadScript(url,callback) {
-    var script = document.createElement('script');
-    script.src = url;
-    script.onload=callback
-    script.async = true; // This makes the script load asynchronously
-    document.head.appendChild(script);
-  }
-
-loadScript('https://unpkg.com/axios/dist/axios.min.js',function(){
-
     getInfo();
-});
-loadScript("https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js",function(){})
+
 
 })

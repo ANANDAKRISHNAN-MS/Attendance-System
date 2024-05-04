@@ -1,7 +1,8 @@
 
 document.addEventListener('DOMContentLoaded',function(){ 
 
-    const tcc_code = document.getElementsByClassName('card-title')[0].id;
+    const params = window.location.search
+    const tcc_code = new URLSearchParams(params).get('tcc_code');
     const student_id = document.getElementsByClassName('container')[0].id;
     
     window.getAttendanceInfo = async ()=>{
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded',function(){
                     tcc_code:tcc_code
                 }
             });
-
+            
             const attendanceList = res.data.attendanceList;
             
             const teacherName = document.getElementById('teacherName')
@@ -73,17 +74,7 @@ document.addEventListener('DOMContentLoaded',function(){
         }
     
      }
-    function loadScript(url,callback) {
-        var script = document.createElement('script');
-        script.src = url;
-        script.onload=callback
-        script.async = true; // This makes the script load asynchronously
-        document.head.appendChild(script);
-      }
-    
-    loadScript('https://unpkg.com/axios/dist/axios.min.js',function(){
     
         getAttendanceInfo();
-    });
     
     })

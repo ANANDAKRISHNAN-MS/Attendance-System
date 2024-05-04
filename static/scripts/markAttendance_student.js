@@ -7,16 +7,16 @@ document.addEventListener('DOMContentLoaded',function(){
      document.getElementById('preview').style.display="block"
       const video = document.getElementById('preview');
       const canvas = document.createElement('canvas');
-      canvas.width = 300; // Adjust size as needed
-      canvas.height = 300; // Adjust size as needed
-      canvas.style.display = 'none'; // Hide the canvas element
+      canvas.width = 300; 
+      canvas.height = 300; 
+      canvas.style.display = 'none'; 
       document.body.appendChild(canvas);
 
       navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 },
        height: { ideal: 720 }, facingMode: 'environment' } })
         .then(function(stream) {
           video.srcObject = stream;
-          video.setAttribute('playsinline', true); // required to tell iOS safari we don't want fullscreen
+          video.setAttribute('playsinline', true); 
           video.play();
           requestAnimationFrame(scan);
         })
@@ -36,6 +36,21 @@ document.addEventListener('DOMContentLoaded',function(){
             const code = jsQR(imageData.data, imageData.width, imageData.height, {
               inversionAttempts: 'dontInvert',
             });
+
+            setTimeout(async()=>{
+                if(isScanning){
+                  video.srcObject.getTracks().forEach(track => track.stop());
+                  video.pause();
+                  isScanning = false; // Stop the scanning loop
+                  document.getElementById('preview').style.display="none" 
+
+                  displayMsg.innerText="Try Again!!";
+                  displayMsg.style.border='1.5px solid red';
+                  displayMsg.style.color='#FF004F';
+                  displayMsg.style.display='block'; 
+                }
+            },10000)
+
             if (code) {
               let qrcode=code.data.split('%40')
               const tcc_code = document.getElementsByClassName('card-title')[0].id
@@ -90,17 +105,9 @@ document.addEventListener('DOMContentLoaded',function(){
     });
 
   }  
-  
-  function loadScript(url,callback) {
-    var script = document.createElement('script');
-    script.src = url;
-    script.onload=callback
-    script.async = true; // This makes the script load asynchronously
-    document.head.appendChild(script);
-  }
 
-loadScript("https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js",function(){
+
     scanQR();
-});
+
 
 })

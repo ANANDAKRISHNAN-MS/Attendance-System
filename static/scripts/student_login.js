@@ -18,11 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMsg.style.display='block';
             
             setTimeout(async ()=>{
-                const data={id:studentId.value};
-                const studentData = await axios.post('/profile/student',data);
-                document.open('text/html', 'replace');
-                document.write(studentData.data);
-                document.close();
+                window.location.replace(`/profile/student/${encodeURIComponent(studentId.value)}`);
             },1000)
         }
         catch(error){

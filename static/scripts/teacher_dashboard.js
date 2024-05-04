@@ -1,29 +1,3 @@
-const addLinks = ()=>{
-        const links = document.querySelectorAll('.course-card a');
-        const linkList = Array.from(links);
-  
-        linkList.forEach(link =>{
-          link.addEventListener('click', async function(event) {
-            event.preventDefault();
-            linkData = link.id.split('&&');
-              
-            const data ={
-              tcc_code : linkData[0],
-              course_code : linkData[1],
-              course_name : linkData[2],
-            }
-
-            const res = await axios.post('/profile/course/teacher',data);
-
-            const newWindow = window.open('/course.html','_blank')
-
-            newWindow.onload = function(){
-              newWindow.document.write(res.data);
-              newWindow.document.close()
-            }
-
-        })})
-}
 const getCourse= async()=>{
   try {
       const teacher = document.getElementsByClassName('card-title')[0];
@@ -59,7 +33,7 @@ const getCourse= async()=>{
                   <h3 class="course-title">${course_code}</h3>
                   <p class="course-description">${course_name}</p>
                 </div>
-                <a href="" id="${tcc_code}&&${course_code}&&${course_name}" class="view-link"><p>View</p><svg
+                <a href="./${teacher.id}/course?tcc_code=${tcc_code}"class="view-link"><p>View</p><svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -80,7 +54,6 @@ const getCourse= async()=>{
 
         }
 
-        addLinks()
 
 
   } catch (error) {
@@ -88,16 +61,7 @@ const getCourse= async()=>{
   }
 }
 
-function loadScript(url) {
-  var script = document.createElement('script');
-  script.src = url;
-  script.async = true; // This makes the script load asynchronously
-  document.head.appendChild(script);
-}
-
 document.addEventListener('DOMContentLoaded',function(){
-
-  loadScript('https://unpkg.com/axios/dist/axios.min.js');
   
   getCourse();
 })
