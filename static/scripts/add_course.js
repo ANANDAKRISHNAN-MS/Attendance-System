@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded',function(){
       data={
         teacher_id:teacher.id,
         course_code:courseCode,
-        class_code:`C${semester}${className}`,
+        class_code:`C${semester}${className}`
       }
 
       const res = await axios.post('/update/course',data);

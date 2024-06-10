@@ -37,10 +37,9 @@ const generateQr = async (req,res)=>{
                 console.log(error);
             }
         }));
-
         const result1 = await pool.query("INSERT into \"Attendence_System\".qr_table(qr_id) VALUES ($1)",[uniqueId]);
         
-        return res.status(200).send();
+        return res.status(200).send("Generated Sucessfully");
     }catch(error){
         console.error(error)
     }

@@ -1,18 +1,23 @@
+getCaptchaResponse = function(response){
+    window.captcha=response
+    
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const TeacherLoginForm = document.getElementById('form');
     const teacherId = document.getElementById('teacherId');
     const password = document.getElementById('password');
     const errorMsg = document.getElementById('error-message');
 
-    const validate = async () => {
+    const validate = async (captcha) => {
 
         try{
-            const result = await axios.get('/api/validate/teacher', {
-                params: {
-                    id: teacherId.value,
-                    pass: password.value
-                }
-            });
+            const data = {
+                id: teacherId.value,
+                pass: password.value,
+                recaptchaResponse :captcha
+            } 
+            const result = await axios.post('/api/validate/teacher',data);
             errorMsg.innerText=result.data;
             errorMsg.style.border='1.5px solid #66FF00';
             errorMsg.style.color='#008080';
@@ -43,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         else{
-            validate();
+            result = window.captcha ? window.captcha:null
+            validate(result);
         }
     });
 });

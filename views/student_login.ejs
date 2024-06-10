@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/login.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="scripts/student_login.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Qttend</title>
 </head>
 <body>
@@ -15,6 +17,7 @@
                 <input type="text" id="studentId" name="studentId" placeholder="Student Id">
                 <input type="password" id="password" name="password" placeholder="Password">
                 <a href="#">Forgot Your Password?</a>
+                <!-- <div class="g-recaptcha" data-sitekey="6LeGCdEpAAAAAAoFRjRoGxOy9ysyMuqSTcFgqDzO" data-callback="getCaptchaResponse"></div> -->
                 <button type="submit" id="login" >Login</button>
             </form >
             <p id="error-message"></p>
@@ -28,6 +31,5 @@
             </div>
         </div>
     </div>
-    <script src="scripts/student_login.js"></script>
 </body>
 </html>

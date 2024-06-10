@@ -28,7 +28,7 @@ app.use(
             schemaName: "Attendence_System",            
             tableName :"session"
         }),
-        secret:"qttend",
+        secret:process.env.SESSION_SECRET,
         resave:false,
         saveUninitialized:false
     })
@@ -37,6 +37,7 @@ app.use(
 app.get('/student_login.html',(req,res)=>{
     if(req.session.isAuthStudent){
         req.session.isAuthStudent=false
+        req.session.studentId=null
     }
     res.render('student_login')
 })
